@@ -262,7 +262,8 @@ function showPreview(){
   preview.scrollIntoView({behavior:"smooth"});
 }
 
-async function publishArticle(){
+async function publishArticle(){const publishKey=prompt("게시 비밀번호를 입력하세요.");
+if(!publishKey) return;
   const button=document.querySelector(".publish-btn");
 
   const article={
@@ -287,7 +288,7 @@ async function publishArticle(){
       {
         method:"POST",
         headers:{
-          "Content-Type":"application/json"
+          "Content-Type":"application/json","X-Publish-Key":publishKey
         },
         body:JSON.stringify(article)
       }
