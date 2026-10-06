@@ -1,1 +1,11 @@
-[]
+
+[
+  {
+    "id": "test-001",
+    "category": "NEWS",
+    "date": "2026-10-06",
+    "title": "RADIO WAVE 기사 시스템 테스트",
+    "summary": "RADIO WAVE의 새로운 기사 작성 시스템이 정상적으로 작동하는지 확인하기 위한 테스트 기사입니다.",
+    "content": "여기는 RADIO WAVE 기사 본문입니다.\n\n이 문장이 보인다면 articles.json에 저장된 데이터를 article.html이 정상적으로 불러오고 있는 것입니다.\n\n지금 ON-AIR!"
+  }
+]
