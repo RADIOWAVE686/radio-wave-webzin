@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>RADIO WAVE</title>
+
+<link rel="icon" type="image/png"
+href="RADIO_WAVE_RW_99MHz_centered_v2_512.png">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#f5f2ed;
+  color:#17151a;
+  font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+header{
+  background:linear-gradient(135deg,#0b1020,#17112c 65%,#461b3a);
+  color:#fff;
+  padding:28px 6%;
+}
+
+.brand{
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:-1px;
+  cursor:pointer;
+}
+
+.sub{
+  margin-top:4px;
+  color:#bcb7c8;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:2px;
+}
+
+main{
+  width:min(850px,90%);
+  margin:55px auto 90px;
+}
+
+.category{
+  color:#7658df;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+h1{
+  margin:14px 0 18px;
+  font-size:46px;
+  line-height:1.15;
+  letter-spacing:-2.5px;
+  word-break:keep-all;
+}
+
+.summary{
+  margin:0;
+  color:#69646d;
+  font-size:18px;
+  line-height:1.7;
+  word-break:keep-all;
+}
+
+.meta{
+  margin-top:25px;
+  padding-bottom:28px;
+  border-bottom:1px solid #d7d2cc;
+  color:#928c95;
+  font-size:13px;
+}
+
+.article-body{
+  padding-top:35px;
+  font-size:18px;
+  line-height:2;
+  white-space:pre-wrap;
+  word-break:keep-all;
+}
+
+.back{
+  display:inline-block;
+  margin-top:55px;
+  padding:12px 17px;
+  background:#17152b;
+  color:#fff;
+  text-decoration:none;
+  font-size:13px;
+  font-weight:800;
+}
+
+.error{
+  padding:60px 0;
+  text-align:center;
+  color:#777;
+}
+
+footer{
+  border-top:1px solid #ddd8d1;
+  padding:35px;
+  text-align:center;
+  color:#969098;
+  font-size:11px;
+}
+
+@media(max-width:650px){
+  main{margin-top:38px}
+  h1{font-size:34px}
+  .summary{font-size:16px}
+  .article-body{font-size:17px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand" onclick="location.href='index.html'">
+    RADIO WAVE
+  </div>
+  <div class="sub">
+    INDEPENDENT RADIO CULTURE WEBZINE
+  </div>
+</header>
+
+<main id="article">
+  <div class="error">기사를 불러오는 중입니다.</div>
+</main>
+
+<footer>
+  RADIO WAVE · 99.0 MHz · HLRW-SFM
+</footer>
+
+<script>
+async function loadArticle(){
+
+  const articleArea=document.getElementById("article");
+  const params=new URLSearchParams(location.search);
+  const id=params.get("id");
+
+  if(!id){
+    articleArea.innerHTML=
+      '<div class="error">기사 주소가 올바르지 않습니다.</div>';
+    return;
+  }
+
+  try{
+
+    const response=await fetch(
+      "articles/articles.json?time="+Date.now()
+    );
+
+    if(!response.ok){
+      throw new Error("JSON load failed");
+    }
+
+    const articles=await response.json();
+
+    const article=articles.find(
+      item=>String(item.id)===String(id)
+    );
+
+    if(!article){
+      articleArea.innerHTML=
+        '<div class="error">해당 기사를 찾을 수 없습니다.</div>';
+      return;
+    }
+
+    document.title=article.title+" | RADIO WAVE";
+
+    const category=document.createElement("div");
+    category.className="category";
+    category.textContent=article.category+" / RADIO WAVE";
+
+    const title=document.createElement("h1");
+    title.textContent=article.title;
+
+    const summary=document.createElement("p");
+    summary.className="summary";
+    summary.textContent=article.summary;
+
+    const meta=document.createElement("div");
+    meta.className="meta";
+    meta.textContent=article.date+" · RADIO WAVE";
+
+    const body=document.createElement("div");
+    body.className="article-body";
+    body.textContent=article.content;
+
+    const back=document.createElement("a");
+    back.className="back";
+    back.href="index.html";
+    back.textContent="← RADIO WAVE 홈";
+
+    articleArea.replaceChildren(
+      category,
+      title,
+      summary,
+      meta,
+      body,
+      back
+    );
+
+  }catch(error){
+
+    articleArea.innerHTML=
+      '<div class="error">기사를 불러오지 못했습니다.</div>';
+
+    console.error(error);
+  }
+}
+
+loadArticle();
+</script>
+
+</body>
+</html>
