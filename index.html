@@ -67,7 +67,7 @@ body.menu-open{overflow:hidden}
   ];
 
   const sunday = saturday.map(x => [x[0],x[1],x[2].map(y=>[...y])]);
-  sunday.find(x=>x[0]===9)[2] = [['ubc','매일 그대와']];
+  sunday.find(x=>x[0]===9)[2] = [['ubc','문지영의 라디오 스타']];
 
   function parts(timeZone){
     const p = new Intl.DateTimeFormat('en-US',{
