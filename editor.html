@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RADIO WAVE EDITOR</title>
+<link rel="icon" type="image/png" href="RADIO_WAVE_RW_99MHz_centered_v2_512.png">
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:#f5f2ed;
+  color:#15151a;
+  font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+header{
+  background:linear-gradient(135deg,#0b1020,#17112c 65%,#461b3a);
+  color:#fff;
+  padding:30px 6%;
+}
+.brand{
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+.sub{
+  margin-top:4px;
+  color:#bcb7c8;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:2px;
+}
+.badge{
+  display:inline-block;
+  margin-top:24px;
+  padding:7px 10px;
+  border:1px solid #7658df;
+  color:#c5b6ff;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+main{
+  width:min(900px,90%);
+  margin:38px auto 80px;
+}
+h1{
+  margin:0 0 7px;
+  font-size:34px;
+  letter-spacing:-1.5px;
+}
+.desc{
+  color:#747078;
+  margin:0 0 32px;
+}
+.editor{
+  background:#fff;
+  border:1px solid #ddd9d3;
+  padding:28px;
+}
+label{
+  display:block;
+  margin:23px 0 8px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+label:first-child{margin-top:0}
+input,select,textarea{
+  width:100%;
+  border:1px solid #d5d1cc;
+  background:#fff;
+  padding:14px;
+  font:inherit;
+  color:#15151a;
+  border-radius:0;
+}
+input:focus,select:focus,textarea:focus{
+  outline:2px solid #7658df;
+  border-color:transparent;
+}
+textarea{resize:vertical}
+#summary{min-height:100px}
+#content{min-height:350px;line-height:1.8}
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:28px;
+  flex-wrap:wrap;
+}
+button{
+  border:0;
+  padding:14px 20px;
+  font-weight:900;
+  cursor:pointer;
+}
+.preview-btn{
+  background:#17152b;
+  color:#fff;
+}
+.publish-btn{
+  background:#7658df;
+  color:#fff;
+}
+.publish-btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+.note{
+  margin-top:14px;
+  font-size:12px;
+  color:#88828b;
+}
+.preview{
+  display:none;
+  margin-top:36px;
+  background:#fff;
+  border:1px solid #ddd9d3;
+}
+.preview-head{
+  padding:40px 32px;
+  color:#fff;
+  background:linear-gradient(135deg,#0b1020,#17112c 65%,#461b3a);
+}
+.preview-category{
+  color:#c3b2ff;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+.preview h2{
+  font-size:38px;
+  line-height:1.15;
+  letter-spacing:-2px;
+  margin:15px 0;
+}
+.preview-summary{
+  color:#d1cdd6;
+  line-height:1.7;
+}
+.preview-date{
+  margin-top:25px;
+  color:#8f8998;
+  font-size:13px;
+}
+.preview-body{
+  padding:35px 32px;
+  font-size:17px;
+  line-height:2;
+  white-space:pre-wrap;
+  word-break:keep-all;
+}
+footer{
+  text-align:center;
+  color:#888;
+  font-size:11px;
+  padding:30px;
+}
+@media(max-width:650px){
+  .row{grid-template-columns:1fr}
+  .editor{padding:20px}
+  h1{font-size:29px}
+  .preview h2{font-size:31px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">RADIO WAVE</div>
+  <div class="sub">INDEPENDENT RADIO CULTURE WEBZINE</div>
+  <div class="badge">EDITOR / 기사 작성실</div>
+</header>
+
+<main>
+  <h1>새 기사 작성</h1>
+  <p class="desc">라디오를 실제로 듣는 사람이 기록합니다.</p>
+
+  <section class="editor">
+
+    <div class="row">
+      <div>
+        <label for="category">CATEGORY</label>
+        <select id="category">
+          <option>NEWS</option>
+          <option>KNOWLEDGE</option>
+          <option>HISTORY</option>
+          <option>DX LOG</option>
+          <option>INTERVIEW</option>
+          <option>COLUMN</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="date">DATE</label>
+        <input id="date" type="date">
+      </div>
+    </div>
+
+    <label for="title">TITLE</label>
+    <input id="title" type="text" placeholder="기사 제목">
+
+    <label for="summary">SUMMARY</label>
+    <textarea id="summary" placeholder="메인과 기사 상단에 표시할 요약"></textarea>
+
+    <label for="content">ARTICLE</label>
+    <textarea id="content" placeholder="기사 본문을 작성하세요."></textarea>
+
+    <div class="actions">
+      <button class="preview-btn" onclick="showPreview()">미리보기</button>
+      <button class="publish-btn" disabled>게시하기 · 준비 중</button>
+    </div>
+
+    <div class="note">
+      현재는 편집 및 미리보기 단계입니다. GitHub 게시 기능은 다음 단계에서 연결합니다.
+    </div>
+  </section>
+
+  <section class="preview" id="preview">
+    <div class="preview-head">
+      <div class="preview-category" id="pCategory"></div>
+      <h2 id="pTitle"></h2>
+      <div class="preview-summary" id="pSummary"></div>
+      <div class="preview-date" id="pDate"></div>
+    </div>
+    <div class="preview-body" id="pContent"></div>
+  </section>
+</main>
+
+<footer>
+  RADIO WAVE · 99.0 MHz · HLRW-SFM
+</footer>
+
+<script>
+const dateInput=document.getElementById("date");
+const now=new Date();
+const local=new Date(now.getTime()-now.getTimezoneOffset()*60000);
+dateInput.value=local.toISOString().slice(0,10);
+
+function showPreview(){
+  const category=document.getElementById("category").value;
+  const title=document.getElementById("title").value.trim();
+  const summary=document.getElementById("summary").value.trim();
+  const content=document.getElementById("content").value.trim();
+  const date=document.getElementById("date").value;
+
+  document.getElementById("pCategory").textContent=category+" / RADIO WAVE";
+  document.getElementById("pTitle").textContent=title || "제목을 입력하세요.";
+  document.getElementById("pSummary").textContent=summary || "기사 요약이 여기에 표시됩니다.";
+  document.getElementById("pDate").textContent=(date || "")+" · RADIO WAVE";
+  document.getElementById("pContent").textContent=content || "기사 본문이 여기에 표시됩니다.";
+
+  const preview=document.getElementById("preview");
+  preview.style.display="block";
+  preview.scrollIntoView({behavior:"smooth"});
+}
+</script>
+
+</body>
+</html>
