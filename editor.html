@@ -215,7 +215,7 @@ footer{
 
     <div class="actions">
       <button class="preview-btn" onclick="showPreview()">미리보기</button>
-      <button class="publish-btn" disabled>게시하기 · 준비 중</button>
+      <button class="publish-btn" id="publishBtn" onclick="publishArticle()">게시하기</button>
     </div>
 
     <div class="note">
@@ -261,7 +261,9 @@ function showPreview(){
   preview.style.display="block";
   preview.scrollIntoView({behavior:"smooth"});
 }
-</script>
+async function publishArticle(){
+  alert("게시 기능 연결 테스트 성공!");
+}</script>
 
 </body>
 </html>
