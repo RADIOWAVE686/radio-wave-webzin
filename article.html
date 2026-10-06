@@ -153,17 +153,14 @@ async function loadArticle(){
   try{
 
     const response=await fetch(
-      "articles/articles.json?time="+Date.now()
-    );
+  "articles/"+encodeURIComponent(id)+".json?time="+Date.now()
+);
 
-    if(!response.ok){
-      throw new Error("JSON load failed");
-    }
+if(!response.ok){
+  throw new Error("JSON load failed");
+}
 
-    const articles=await response.json();
-
-    const article=articles.find(
-      item=>String(item.id)===String(id)
+const article=await response.json();
     );
 
     if(!article){
