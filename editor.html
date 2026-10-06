@@ -261,9 +261,54 @@ function showPreview(){
   preview.style.display="block";
   preview.scrollIntoView({behavior:"smooth"});
 }
+
 async function publishArticle(){
-  alert("게시 기능 연결 테스트 성공!");
-}</script>
+  const button=document.querySelector(".publish-btn");
+
+  const article={
+    category:document.getElementById("category").value,
+    date:document.getElementById("date").value,
+    title:document.getElementById("title").value.trim(),
+    summary:document.getElementById("summary").value.trim(),
+    content:document.getElementById("content").value.trim()
+  };
+
+  if(!article.title || !article.content){
+    alert("제목과 본문을 입력해 주세요.");
+    return;
+  }
+
+  button.disabled=true;
+  button.textContent="게시 중…";
+
+  try{
+    const response=await fetch(
+      "https://radiowave-publisher.chn0721.workers.dev",
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify(article)
+      }
+    );
+
+    const result=await response.json();
+
+    if(!response.ok || !result.ok){
+      throw new Error(result.error || "게시 실패");
+    }
+
+    alert("게시 완료!\\n"+result.path);
+
+  }catch(error){
+    alert("게시 실패: "+error.message);
+
+  }finally{
+    button.disabled=false;
+    button.textContent="게시하기";
+  }
+  }</script>
 
 </body>
 </html>
