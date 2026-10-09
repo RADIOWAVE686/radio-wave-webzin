@@ -68,7 +68,7 @@ body.menu-open{overflow:hidden}
 
   const sunday = saturday.map(x => [x[0],x[1],x[2].map(y=>[...y])]);
   sunday.find(x=>x[0]===9)[2] = [['ubc','문지영의 라디오 스타']];
-
+sunday.find(x=>x[0]===18)[2].push(['JTV','안준성의 스포츠익스프레스']);
   function parts(timeZone){
     const p = new Intl.DateTimeFormat('en-US',{
       timeZone,weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'
@@ -103,11 +103,16 @@ body.menu-open{overflow:hidden}
   function radioKoreaProgram(){
     const k=parts('Asia/Seoul');
     // 평일의 한국시간 새벽·오전에만 RADIO KOREA 동시청취 표시
-    if(['Sat','Sun'].includes(k.day) || k.h>=12) return null;
+   if(['Sat','Sun'].includes(k.day) || k.h>=12) return null;
 
     const la=parts('America/Los_Angeles');
-    if(['Sat','Sun'].includes(la.day)) return null;
-    const t=la.h + la.m/60;
+   
+const t=la.h + la.m/60;
+if(la.day !== 'Sun' && t>=5 && t<6)
+  return ['RADIO KOREA','출발 새 아침'];
+
+if(!['Sat','Sun'].includes(la.day)) return null;
+    
     if(t>=7 && t<9) return ['RADIO KOREA','모닝뉴스'];
     if(t>=9 && t<10) return ['RADIO KOREA','모닝포커스'];
     if(t>=10 && t<12) return ['RADIO KOREA','아침마당'];
@@ -122,7 +127,9 @@ body.menu-open{overflow:hidden}
     let rows=koreanPrograms();
     const rk=radioKoreaProgram();
     if(rk) rows.push(rk);
-
+const now=parts('Asia/Seoul');
+if(now.h===4 && now.m>=55)
+  rows.push(['RADIO WAVE','여기는 RADIO WAVE, WAVE FM']);
     const box=document.getElementById('liveBox');
     const target=document.getElementById('liveRows');
     box.classList.toggle('multi',rows.length>1);
