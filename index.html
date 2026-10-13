@@ -147,7 +147,7 @@ const t=la.h + la.m/60;
 if(la.day !== 'Sun' && t>=5 && t<6)
   return ['RADIO KOREA','출발 새 아침'];
 
-if(!['Sat','Sun'].includes(la.day)) return null;
+if(!['Sat','Sun','Mon'].includes(la.day)) return null;
     
     if(t>=7 && t<9) return ['RADIO KOREA','모닝뉴스'];
     if(t>=9 && t<10) return ['RADIO KOREA','모닝포커스'];
