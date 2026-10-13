@@ -133,6 +133,11 @@ sunday.find(x=>x[0]===18)[2].push(['JTV','안준성의 스포츠익스프레스'
     } else if(effectiveDay==='Tue' && k.h===22){
       rows=[['BTN','박시환의 러브렌즈']];
     }
+    
+    if (k.h >= 3 && (k.h < 4 || (k.h === 4 && k.m < 55))) {
+      rows.push(['RADIO WAVE', 'WAVE MUSIC']);
+    }
+
     return rows;
   }
 
