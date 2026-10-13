@@ -30,33 +30,4 @@
     "bodyImages": [
       "/images/1791896109198-cbs-12시에-만납시다-연말까지-스페셜-dj-체제-body-1.png"
     ]
-  },
-  {
-    "id": "1791894525789-루크-오빠-사랑해요",
-    "category": "NEWS",
-    "date": "2026-10-13",
-    "title": "루크 오빠 사랑해요",
-    "summary": "루크 오빠 사랑해여",
-    "content": "오빠 내가 격하게 사랑하고 아껴요 평생 루크단해 사랑해 오빠 날 가져ㅠㅠㅠㅠㅠ",
-    "coverImage": "/images/1791894525789-루크-오빠-사랑해요-cover.jpg",
-    "bodyImages": [
-      "/images/1791894525789-루크-오빠-사랑해요-body-1.jpg"
-    ]
-  },
-  {
-    "id": "1791886285858-루크와-세하-사실-구면이였다",
-    "category": "NEWS",
-    "date": "2026-10-13",
-    "title": "루크와 세하 사실 구면이였다",
-    "summary": "어처구니 없는 상황에 세하 소녀 마음 바사삭 당황 전해",
-    "content": "루크 오빠 사랑해요"
-  },
-  {
-    "id": "test-001",
-    "category": "NEWS",
-    "date": "2026-10-06",
-    "title": "RADIO WAVE 기사 시스템 테스트",
-    "summary": "RADIO WAVE의 새로운 기사 작성 시스템이 정상적으로 작동하는지 확인하기 위한 테스트 기사입니다.",
-    "content": "여기는 RADIO WAVE 기사 본문입니다.\n\n이 문장이 보인다면 articles.json에 저장된 데이터를 article.html이 정상적으로 불러오고 있는 것입니다.\n\n지금 ON-AIR!"
   }
-]
