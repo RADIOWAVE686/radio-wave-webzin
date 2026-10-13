@@ -83,7 +83,22 @@ h1{
   white-space:pre-wrap;
   word-break:keep-all;
 }
+.cover-image{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  margin:28px auto;
+  border-radius:8px;
+}
 
+.body-image{
+  display:block;
+  max-width:100%;
+  height:auto;
+  margin:28px auto;
+  border-radius:8px;
+}
 .back{
   display:inline-block;
   margin-top:55px;
@@ -190,18 +205,42 @@ const article=await response.json();
     body.className="article-body";
     body.textContent=article.content;
 
+const coverImage = article.coverImage
+  ? document.createElement("img")
+  : null;
+
+if (coverImage) {
+  coverImage.className = "cover-image";
+  coverImage.src = article.coverImage;
+  coverImage.alt = article.title;
+}
+
+const bodyImages = (
+  Array.isArray(article.bodyImages) ? article.bodyImages : []
+).map((imagePath, index) => {
+  const image = document.createElement("img");
+  image.className = "body-image";
+  image.src = imagePath;
+  image.alt = article.title + " 본문 사진 " + (index + 1);
+  return image;
+});
+
     const back=document.createElement("a");
     back.className="back";
     back.href="index.html";
     back.textContent="← RADIO WAVE 홈";
 
     articleArea.replaceChildren(
-      category,
-      title,
-      summary,
-      meta,
-      body,
-      back
+      
+  category,
+  title,
+  summary,
+  meta,
+  ...(coverImage ? [coverImage] : []),
+  body,
+  ...bodyImages,
+  back
+
     );
 
   }catch(error){
