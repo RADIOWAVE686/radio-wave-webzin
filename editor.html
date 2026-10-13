@@ -210,6 +210,14 @@ footer{
     <label for="summary">SUMMARY</label>
     <textarea id="summary" placeholder="메인과 기사 상단에 표시할 요약"></textarea>
 
+<label for="coverImage">COVER IMAGE / 대표 사진</label>
+<input id="coverImage" type="file" accept="image/jpeg,image/png,image/webp">
+
+<label for="bodyImages">BODY IMAGES / 본문 사진</label>
+<input id="bodyImages" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+
+<p class="note">JPG · PNG · WebP 이미지 지원</p>
+
     <label for="content">ARTICLE</label>
     <textarea id="content" placeholder="기사 본문을 작성하세요."></textarea>
 
@@ -262,6 +270,27 @@ function showPreview(){
   preview.scrollIntoView({behavior:"smooth"});
 }
 
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const result = String(reader.result || "");
+      resolve({
+        name: file.name,
+        type: file.type,
+        data: result.split(",")[1] || ""
+      });
+    };
+
+    reader.onerror = () => {
+      reject(new Error("이미지를 읽지 못했습니다."));
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
 async function publishArticle(){const publishKey=prompt("게시 비밀번호를 입력하세요.");
 if(!publishKey) return;
   const button=document.querySelector(".publish-btn");
@@ -271,7 +300,15 @@ if(!publishKey) return;
     date:document.getElementById("date").value,
     title:document.getElementById("title").value.trim(),
     summary:document.getElementById("summary").value.trim(),
-    content:document.getElementById("content").value.trim()
+    content:document.getElementById("content").value.trim(),
+    coverImage: document.getElementById("coverImage").files[0]
+  ? await fileToBase64(document.getElementById("coverImage").files[0])
+  : null,
+
+bodyImages: await Promise.all(
+  Array.from(document.getElementById("bodyImages").files)
+    .map(fileToBase64)
+)
   };
 
   if(!article.title || !article.content){
