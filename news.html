@@ -108,9 +108,24 @@ async function loadArticles() {
     if (!response.ok) throw new Error("목록 파일을 불러오지 못했습니다.");
 
     const data = await response.json();
-    const articles = Array.isArray(data)
-      ? data
-      : (Array.isArray(data.articles) ? data.articles : []);
+
+    const allArticles = Array.isArray(data)
+  ? data
+  : (Array.isArray(data.articles) ? data.articles : []);
+
+const params = new URLSearchParams(window.location.search);
+const categoryFilter = (params.get("category") || "NEWS").toUpperCase();
+
+const articles = categoryFilter === "ARCHIVE"
+  ? allArticles
+  : allArticles.filter(article =>
+      String(article.category || "NEWS").toUpperCase() === categoryFilter
+    );
+
+document.querySelector("h1").textContent = categoryFilter;
+document.title = categoryFilter + " | RADIO WAVE";
+document.querySelector(".eyebrow").textContent =
+  "RADIO WAVE / " + categoryFilter;
 
     articles.sort((a, b) =>
       String(b.date || "").localeCompare(String(a.date || ""))
